@@ -64,9 +64,9 @@ const Signup = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent:"center",
-        height:"100vh",
-        width:"100vw"
+        justifyContent: "center",
+        height: "100vh",
+        width: "100vw",
       }}
     >
       <h2
@@ -98,11 +98,13 @@ const Signup = () => {
           style={{
             marginBottom: "0.75rem",
             width: "100%",
+            backgroundColor: "#FFFFFF",
           }}
           value={formik.values.firstName}
           error={Boolean(formik.errors.firstName)}
           errorMessage={formik.touched.firstName && formik.errors.firstName}
           autoComplete="off"
+          TextFieldVariants="filled"
         />
         <TextField
           id="lastName"
@@ -114,11 +116,13 @@ const Signup = () => {
           style={{
             marginBottom: "0.75rem",
             width: "100%",
+            backgroundColor: "#FFFFFF",
           }}
           value={formik.values.lastName}
           error={Boolean(formik.errors.lastName)}
           errorMessage={formik.touched.lastName && formik.errors.lastName}
           autoComplete="off"
+          TextFieldVariants="filled"
         />
 
         <TextField
@@ -132,10 +136,12 @@ const Signup = () => {
           style={{
             marginBottom: "0.75rem",
             width: "100%",
+            backgroundColor: "#FFFFFF",
           }}
           error={Boolean(formik.errors.email)}
           errorMessage={formik.touched.email && formik.errors.email}
           autoComplete="off"
+          TextFieldVariants="filled"
         />
         <TextField
           id="password"
@@ -147,11 +153,13 @@ const Signup = () => {
           style={{
             marginBottom: "0.75rem",
             width: "100%",
+            backgroundColor: "#FFFFFF",
           }}
           value={formik.values.password}
           error={Boolean(formik.errors.password)}
           errorMessage={formik.touched.password && formik.errors.password}
           autoComplete="off"
+          TextFieldVariants="filled"
         />
         <TextField
           id="mobileNumber"
@@ -163,6 +171,7 @@ const Signup = () => {
           style={{
             marginBottom: "0.75rem",
             width: "100%",
+            backgroundColor: "#FFFFFF",
           }}
           value={formik.values.mobileNumber}
           error={Boolean(formik.errors.mobileNumber)}
@@ -170,11 +179,12 @@ const Signup = () => {
             formik.touched.mobileNumber && formik.errors.mobileNumber
           }
           autoComplete="off"
+          TextFieldVariants="filled"
         />
         <ReusableButton
           size="medium"
           disabled={isLogged}
-          style={{width:"100%"}}
+          style={{ width: "100%" }}
           className="w-full mt-9 bg-customBlue text-white rounded-md py-2 font-semibold hover:bg-customHoverBlue "
           variant="contained"
           type="submit"

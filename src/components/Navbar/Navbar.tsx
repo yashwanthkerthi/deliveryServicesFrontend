@@ -106,7 +106,7 @@ export default function Navbar() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar style={{backgroundColor:"#0E2C53"}} position="fixed" >
+      <AppBar style={{backgroundColor:"#0E2C53",top:"0px",minHeight:"12%"}} position="fixed" >
         <Toolbar>
           {/* <IconButton
             color="inherit"
@@ -140,7 +140,7 @@ export default function Navbar() {
         </DrawerHeader>
         <Divider />
       </Drawer> */}
-      <div style={{paddingLeft:"1%",paddingRight:"1%"}} >
+      <div  >
       <Outlet/>
       </div>
     </Box>

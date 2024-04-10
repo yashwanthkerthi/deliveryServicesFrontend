@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { updateStatusValidation } from "../../utils/helpers/validations/Validations";
+import { pickupDetailsFormValidation } from "../../utils/helpers/validations/Validations";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
 import { Navigate } from "react-router-dom";
 
-const AdminDashboard = () => {
+const PickupDetailsForm = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      trackingId: "",
-      status:"",
+      date: "",
+      time:"",
+      location:""
     },
-    validationSchema: updateStatusValidation,
+    validationSchema: pickupDetailsFormValidation,
     onSubmit: () => {
-      handleSubmitStatusChange();
+      handleSubmitPickupDetails();
     },
   });
 
-  const handleSubmitStatusChange = async () => {
+  const handleSubmitPickupDetails = async () => {
     // const { firstName, lastName, email, password, mobileNumber } =
     //   formik.values;
     try {
@@ -86,43 +87,58 @@ const AdminDashboard = () => {
               fontSize: "20px",
             }}
           >
-            Update order status
+            Please Enter pickup details
           </h1>
           <div style={{ display: "flex", flexDirection: "column" }}>
               <TextField
-                id="trackingId"
-                name="trackingId"
-                placeholder="Enter trackingId"
-                label="trackingId"
+                id="date"
+                name="date"
+                placeholder="Enter date"
+                label="date"
                 onChange={formik.handleChange}
-                type="text"
+                type="date"
                 style={{
                   // marginBottom: "0.75rem",
                   width: "100%",
                 }}
-                value={formik.values.trackingId}
-                error={Boolean(formik.errors.trackingId)}
-                errorMessage={
-                  formik.touched.trackingId && formik.errors.trackingId
-                }
+                value={formik.values.date}
+                error={Boolean(formik.errors.date)}
+                errorMessage={formik.touched.date && formik.errors.date}
                 autoComplete="off"
                 TextFieldVariants="filled"
               />
               <TextField
-                id="status"
-                name="status"
-                placeholder="Enter status"
-                label="status"
+                id="time"
+                name="time"
+                placeholder="Enter time"
+                label="content"
+                onChange={formik.handleChange}
+                type="time"
+                value={formik.values.time}
+                style={{
+                  // marginBottom: "0.75rem",
+                  width: "100%",
+                }}
+                error={Boolean(formik.errors.time)}
+                errorMessage={formik.touched.time && formik.errors.time}
+                autoComplete="off"
+                TextFieldVariants="filled"
+              />
+              <TextField
+                id="location"
+                name="location"
+                placeholder="Enter pickup address"
+                label="location"
                 onChange={formik.handleChange}
                 type="text"
                 style={{
                   // marginBottom: "0.75rem",
                   width: "100%",
                 }}
-                value={formik.values.status}
-                error={Boolean(formik.errors.status)}
+                value={formik.values.location}
+                error={Boolean(formik.errors.location)}
                 errorMessage={
-                  formik.touched.status && formik.errors.status
+                  formik.touched.location && formik.errors.location
                 }
                 autoComplete="off"
                 TextFieldVariants="filled"
@@ -144,6 +160,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
-
-
+export default PickupDetailsForm;

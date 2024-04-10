@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { updateStatusValidation } from "../../utils/helpers/validations/Validations";
+import { trackShipmentValidation } from "../../utils/helpers/validations/Validations";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
-import { Navigate } from "react-router-dom";
 
-const AdminDashboard = () => {
+const TrackShipment = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      trackingId: "",
-      status:"",
+      trackingId:""
     },
-    validationSchema: updateStatusValidation,
+    validationSchema: trackShipmentValidation,
     onSubmit: () => {
-      handleSubmitStatusChange();
+      handleTrackShipmentDetails();
     },
   });
 
-  const handleSubmitStatusChange = async () => {
+  const handleTrackShipmentDetails = async () => {
     // const { firstName, lastName, email, password, mobileNumber } =
     //   formik.values;
     try {
@@ -54,20 +52,20 @@ const AdminDashboard = () => {
       setIsLogged(false);
     }
   };
-
   return (
     <div
       style={{
-        paddingTop: "10vh",
+        paddingTop: "20vh",
         height: "100vh",
         width: "100vw",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        top: "25%",
+        justifyContent: "flex-start",
+        top:"25%",
         alignItems: "center",
       }}
     >
+      {/* <h1>Address Form</h1> */}
       <form
         style={{
           display: "flex",
@@ -78,56 +76,39 @@ const AdminDashboard = () => {
         onSubmit={formik.handleSubmit}
         autoComplete="off"
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <h1
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: "20px",
-            }}
-          >
-            Update order status
-          </h1>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-              <TextField
-                id="trackingId"
-                name="trackingId"
-                placeholder="Enter trackingId"
-                label="trackingId"
-                onChange={formik.handleChange}
-                type="text"
-                style={{
-                  // marginBottom: "0.75rem",
-                  width: "100%",
-                }}
-                value={formik.values.trackingId}
-                error={Boolean(formik.errors.trackingId)}
-                errorMessage={
-                  formik.touched.trackingId && formik.errors.trackingId
-                }
-                autoComplete="off"
-                TextFieldVariants="filled"
-              />
-              <TextField
-                id="status"
-                name="status"
-                placeholder="Enter status"
-                label="status"
-                onChange={formik.handleChange}
-                type="text"
-                style={{
-                  // marginBottom: "0.75rem",
-                  width: "100%",
-                }}
-                value={formik.values.status}
-                error={Boolean(formik.errors.status)}
-                errorMessage={
-                  formik.touched.status && formik.errors.status
-                }
-                autoComplete="off"
-                TextFieldVariants="filled"
-              />
+        <div style={{ display: "flex" }}>
+          <div style={{display:"flex",flexDirection:"column",}} >
+            <h1
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: "20px",
+              }}
+            >
+              Enter Tracking ID
+            </h1>
+            <TextField
+              id="trackingId"
+              name="trackingId"
+              placeholder="Enter Tracking Id"
+              label="trackingId"
+              onChange={formik.handleChange}
+              type="text"
+              style={{
+                // marginBottom: "0.75rem",
+                width: "100%",
+              }}
+              value={formik.values.trackingId}
+              error={Boolean(formik.errors.trackingId)}
+              errorMessage={
+                formik.touched.trackingId && formik.errors.trackingId
+              }
+              autoComplete="off"
+              TextFieldVariants="filled"
+            />
+            
           </div>
+          
         </div>
         <ReusableButton
           size="medium"
@@ -144,6 +125,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
-
-
+export default TrackShipment;

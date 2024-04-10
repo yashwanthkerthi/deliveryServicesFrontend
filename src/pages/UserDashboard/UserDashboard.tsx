@@ -9,27 +9,29 @@ import logo1 from "../../deliveryImages/logo1.png";
 import logo2 from "../../deliveryImages/logo2.png";
 import logo3 from "../../deliveryImages/logo3.png";
 import logo4 from "../../deliveryImages/logo4.png";
+import {  useNavigate } from "react-router-dom";
 
 const images = [
   {
-    label: "San Francisco – Oakland Bay Bridge, United States",
+    label: "1",
     imgPath: logo1,
   },
   {
-    label: "Bird",
+    label: "2",
     imgPath: logo2,
   },
   {
-    label: "Bali, Indonesia",
+    label: "3",
     imgPath: logo3,
   },
   {
-    label: "Goč, Serbia",
+    label: "4",
     imgPath: logo4,
   },
 ];
 
 const UserDashboard = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -74,6 +76,7 @@ const UserDashboard = () => {
               color: "#FFFFFF",
               borderRadius: "0px",
             }}
+            onClick={() => navigate("/address")}
             variant="contained"
           >
             Book Now
@@ -115,6 +118,7 @@ const UserDashboard = () => {
               borderRadius: "0px",
             }}
             variant="contained"
+            onClick={() => navigate("/trackshipment")}
           >
             Track a Shipment
           </Button>
@@ -155,7 +159,7 @@ const UserDashboard = () => {
             }}
             variant="contained"
           >
-            Book Now
+            Find Now
           </Button>
         </div>
       </div>

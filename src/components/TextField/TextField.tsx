@@ -1,8 +1,8 @@
 import * as React from "react";
-import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
 import FormHelperText from "@mui/material/FormHelperText";
 
-interface TextFieldProps {
+interface InputTextFieldProps {
   id?: string;
   name?: string;
   placeholder?: string;
@@ -17,9 +17,10 @@ interface TextFieldProps {
   errorMessage?: string | boolean;
   autoComplete?: string | boolean;
   disabled?: boolean;
+  TextFieldVariants?: "outlined" | "filled" ;
 }
 
-const TextField: React.FC<TextFieldProps> = ({
+const InputTextField: React.FC<InputTextFieldProps> = ({
   id,
   name,
   placeholder,
@@ -34,10 +35,12 @@ const TextField: React.FC<TextFieldProps> = ({
   errorMessage,
   autoComplete,
   disabled,
+  TextFieldVariants
 }) => {
   return (
     <>
-      <Input
+    <div style={{margin:"5px",maxHeight:"70px",minHeight:"70px"}} >
+      <TextField
         id={id}
         name={name}
         placeholder={placeholder}
@@ -47,8 +50,7 @@ const TextField: React.FC<TextFieldProps> = ({
         required={required}
         className={className}
         style={style}
-        autoComplete="disabled"
-        
+        autoComplete="disabled"        
       />
       {value==="" ? 
       <>
@@ -58,8 +60,9 @@ const TextField: React.FC<TextFieldProps> = ({
         </FormHelperText>
       )}
       </> : ""}
+      </div>
     </>
   );
 };
 
-export default TextField;
+export default InputTextField;

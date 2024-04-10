@@ -68,13 +68,15 @@ const Signin = () => {
             style={{
                 marginBottom: "0.75rem",
                 width: "100%",
+                backgroundColor:"#FFFFFF"
               }}
             type="email"
             value={formik.values.email}
             error={Boolean(formik.errors.email)}
             errorMessage={formik.touched.email && formik.errors.email}
             autoComplete="off"
-          />
+            TextFieldVariants="filled"
+            />
           <TextField
             id="password"
             name="password"
@@ -84,12 +86,15 @@ const Signin = () => {
             style={{
                 marginBottom: "0.75rem",
                 width: "100%",
+                backgroundColor:"#FFFFFF"
               }}
             type="password"
             value={formik.values.password}
             error={Boolean(formik.errors.password)}
             errorMessage={formik.touched.password && formik.errors.password}
             autoComplete="off"
+            TextFieldVariants="filled"
+
           />
           <ReusableButton
                 size="medium"
