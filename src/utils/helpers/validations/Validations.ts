@@ -13,16 +13,16 @@ export const signUpFormValidation = yup.object().shape({
 });
 
 export const addressFormValidation = yup.object().shape({
-  fromAddress: yup.string().required("Please enter a valid email"),
-  fromEmail: yup.string().required("Please enter your password"),
-  fromName: yup.string().required("Please enter first name"),
-  fromPhoneNumber: yup.string().required("Please enter last name"),
-  fromPincode: yup.number().required("Please enter mobile number"),
-  toAddress: yup.string().required("Please enter a valid email"),
-  toEmail: yup.string().required("Please enter your password"),
-  toName: yup.string().required("Please enter first name"),
-  toPhoneNumber: yup.string().required("Please enter last name"),
-  toPincode: yup.number().required("Please enter mobile number"),
+  fromAddress: yup.string().required("Please enter from address"),
+  fromEmail: yup.string().required("Please enter fromemail"),
+  fromName: yup.string().required("Please enter fromname"),
+  fromPhoneNumber: yup.string().required("Please enter fromhone number"),
+  fromPincode: yup.number().required("Please enter frompincode"),
+  toAddress: yup.string().required("Please enter toaddress"),
+  toEmail: yup.string().required("Please enter toemail"),
+  toName: yup.string().required("Please enter toname"),
+  toPhoneNumber: yup.string().required("Please enter tophonenumber"),
+  toPincode: yup.number().required("Please enter topincode"),
 });
 
 export const trackShipmentValidation = yup.object().shape({
