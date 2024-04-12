@@ -2,7 +2,6 @@ import AddressForm from "../../pages/AddressForm/AddressForm";
 import AdminDashboard from "../../pages/AdminDashboard/AdminDashboard";
 import BoxDetails from "../../pages/BoxDetailsForm/BoxDetails";
 import PickupDetailsForm from "../../pages/PickupDateForm/PickupDateForm";
-import PlanSelectionForm from "../../pages/PlanSelectionForm/PlanSelectionForm";
 import TrackShipment from "../../pages/TrackShipment/TrackShipment";
 import UpdateBoxStatus from "../../pages/UpdateBoxStatus/UpdateBoxStatus";
 import UserDashboard from "../../pages/UserDashboard/UserDashboard";

@@ -33,8 +33,8 @@ export const boxDetailsFormValidation = yup.object().shape({
   weight: yup.string().required("Please enter weight"),
   content: yup.string().required("Please enter content name"),
   measurement: yup.string().required("Please enter measurement"),
-  senderName: yup.string().required("Please enter senderName"),
-  recipientName: yup.number().required("Please enter recipientName"),
+  sender_name: yup.string().required("Please enter senderName"),
+  recipient_name: yup.string().required("Please enter recipientName"),
 });
 
 export const pickupDetailsFormValidation = yup.object().shape({

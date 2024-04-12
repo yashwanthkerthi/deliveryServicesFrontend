@@ -1,6 +1,4 @@
 import React, { FunctionComponent } from "react";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +6,6 @@ import MenuItem from "@mui/material/MenuItem";
 interface Option {
   key?: string | number;
   value?: string;
-  title?: string;
 }
 
 interface ReusableDropdownProps {
@@ -56,8 +53,6 @@ const ReusableDropdown: FunctionComponent<ReusableDropdownProps> = ({
         name={name}
         displayEmpty={displayEmpty}
         value={value}
-        // onBlur={onBlur}
-        // size={size}
         onChange={onChange}
         style={style}
         className={className}

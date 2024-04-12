@@ -65,20 +65,8 @@ const AddressForm = () => {
         to_pincode : toPincode,
       };
       console.log(formData);
-      // const response = await Post(networkUrls.addaddress, formData, true);
 
       navigate("/boxdetails");
-
-
-      // if (response?.data?.statusCode === 200) {
-      //   toast.success("Signup successful", { autoClose: 3000 });
-        // navigate("/boxdetails");
-        // // Cookies.set("refreshToken", response.data.data.refreshToken);s
-        // localStorage.setItem(
-        //   "userDetails",
-        //   JSON.stringify(response?.data?.data)
-        // );
-      // } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
     }

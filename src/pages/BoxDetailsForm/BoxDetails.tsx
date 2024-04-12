@@ -4,56 +4,32 @@ import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 const BoxDetailsForm = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
       weight: "",
       content: "",
-      measuremnet: "",
+      measurement: "",
       sender_name: "",
       recipient_name: "",
     },
     validationSchema: boxDetailsFormValidation,
     onSubmit: () => {
-      handleLoginDetails();
+      handleAddBoxDetails();
     },
   });
 
-  const handleLoginDetails = async () => {
-    // const { firstName, lastName, email, password, mobileNumber } =
-    //   formik.values;
+  const handleAddBoxDetails = async () => {
+    navigate("/pickupdetails")
+    console.log("hi");
     try {
-      //   const response = await Post(
-      //     networkUrls.signup,
-      //     {
-      //       first_name: firstName,
-      //       last_name: lastName,
-      //       email,
-      //       password,
-      //       mobile: mobileNumber,
-      //       fcm_token: "dummy",
-      //       device_id: "1",
-      //       device_type: "andriod",
-      //       status: true,
-      //     },
-      //     false
-      //   );
-      //   if (response?.data?.statusCode === 200) {
-      //     toast.success("Signup successful", { autoClose: 3000 });
-      //     Cookies.set("refreshToken", response.data.data.refreshToken);
-      //     Cookies.set("acessToken", response.data.data.acessToken);
-      //     localStorage.setItem(
-      //       "userDetails",
-      //       JSON.stringify(response?.data?.data)
-      //     );
-      //     // navigate("/");
-      //   } else toast.error(response?.data?.message, { autoClose: 3000 });
+      
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
-      setIsLogged(false);
     }
   };
   return (
@@ -97,10 +73,10 @@ const BoxDetailsForm = () => {
               placeholder="Enter weight"
               label="weight"
               onChange={formik.handleChange}
-              type="email"
+              type="text"
               value={formik.values.weight}
               style={{
-                marginBottom: "0.75rem",
+                // marginBottom: "0.75rem",
                 width: "100%",
               }}
               error={Boolean(formik.errors.weight)}
@@ -116,7 +92,7 @@ const BoxDetailsForm = () => {
               onChange={formik.handleChange}
               type="text"
               style={{
-                marginBottom: "0.75rem",
+                // marginBottom: "0.75rem",
                 width: "100%",
               }}
               value={formik.values.content}
@@ -127,20 +103,20 @@ const BoxDetailsForm = () => {
             />
 
             <TextField
-              id="measuremnet"
-              name="measuremnet"
+              id="measurement"
+              name="measurement"
               placeholder="Enter dimensions"
-              label="measuremnet"
+              label="measurement"
               onChange={formik.handleChange}
               type="text"
               style={{
-                marginBottom: "0.75rem",
+                // marginBottom: "0.75rem",
                 width: "100%",
               }}
-              value={formik.values.measuremnet}
-              error={Boolean(formik.errors.measuremnet)}
+              value={formik.values.measurement}
+              error={Boolean(formik.errors.measurement)}
               errorMessage={
-                formik.touched.measuremnet && formik.errors.measuremnet
+                formik.touched.measurement && formik.errors.measurement
               }
               autoComplete="off"
               TextFieldVariants="filled"
@@ -153,7 +129,7 @@ const BoxDetailsForm = () => {
               onChange={formik.handleChange}
               type="text"
               style={{
-                marginBottom: "0.75rem",
+                // marginBottom: "0.75rem",
                 width: "100%",
               }}
               value={formik.values.sender_name}
@@ -172,7 +148,7 @@ const BoxDetailsForm = () => {
               onChange={formik.handleChange}
               type="text"
               style={{
-                marginBottom: "0.75rem",
+                // marginBottom: "0.75rem",
                 width: "100%",
               }}
               value={formik.values.recipient_name}
@@ -187,7 +163,6 @@ const BoxDetailsForm = () => {
         </div>
         <ReusableButton
           size="medium"
-          disabled={isLogged}
           style={{ width: "100%", backgroundColor: "#0E2C53" }}
           className="w-full mt-9 bg-customBlue text-white rounded-md py-2 font-semibold hover:bg-customHoverBlue "
           variant="contained"

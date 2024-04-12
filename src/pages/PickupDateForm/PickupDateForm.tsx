@@ -7,7 +7,7 @@ import ReusableButton from "../../components/Button/Button";
 import { Navigate } from "react-router-dom";
 
 const PickupDetailsForm = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const [orderBooked,setOrderBooked] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -22,37 +22,10 @@ const PickupDetailsForm = () => {
   });
 
   const handleSubmitPickupDetails = async () => {
-    // const { firstName, lastName, email, password, mobileNumber } =
-    //   formik.values;
+
     try {
-      //   const response = await Post(
-      //     networkUrls.signup,
-      //     {
-      //       first_name: firstName,
-      //       last_name: lastName,
-      //       email,
-      //       password,
-      //       mobile: mobileNumber,
-      //       fcm_token: "dummy",
-      //       device_id: "1",
-      //       device_type: "andriod",
-      //       status: true,
-      //     },
-      //     false
-      //   );
-      //   if (response?.data?.statusCode === 200) {
-      //     toast.success("Signup successful", { autoClose: 3000 });
-      //     Cookies.set("refreshToken", response.data.data.refreshToken);
-      //     Cookies.set("acessToken", response.data.data.acessToken);
-      //     localStorage.setItem(
-      //       "userDetails",
-      //       JSON.stringify(response?.data?.data)
-      //     );
-      //     // navigate("/");
-      //   } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
-      setIsLogged(false);
     }
   };
 
@@ -147,12 +120,11 @@ const PickupDetailsForm = () => {
         </div>
         <ReusableButton
           size="medium"
-          disabled={isLogged}
           style={{ width: "100%", backgroundColor: "#0E2C53" }}
           className="w-full mt-9 bg-customBlue text-white rounded-md py-2 font-semibold hover:bg-customHoverBlue "
           variant="contained"
           type="submit"
-          buttonName="Next"
+          buttonName="Book order now"
         />
       </form>
       {<ToastContainer />}
