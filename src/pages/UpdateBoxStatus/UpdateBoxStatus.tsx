@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-import { trackShipmentValidation } from "../../utils/helpers/validations/Validations";
+import {updateStatusValidation } from "../../utils/helpers/validations/Validations";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
+import ReusableDropdown from "../../components/Dropdown/Dropdown";
 
-const initialData = {
-  orderName: "",
-  status: "",
-};
+const status = [
+    { key: 1, value: "shipped", },
+    { key: 2, value: "delivered",  },
+  ];
 
-const TrackShipment = () => {
-  const [orderStatus, setOrderStatus] = useState(initialData);
-
+const UpdateBoxStatus = () => {
   const formik = useFormik({
     initialValues: {
-      trackingId: "",
+      trackingId:"",
+      status:""
     },
-    validationSchema: trackShipmentValidation,
+    validationSchema: updateStatusValidation,
     onSubmit: () => {
-      handleTrackShipmentDetails();
+      handleUpdateStatusDetails();
     },
   });
 
-  const handleTrackShipmentDetails = async () => {
+  const handleUpdateStatusDetails = async () => {
+
+
     // const { firstName, lastName, email, password, mobileNumber } =
     //   formik.values;
     try {
@@ -65,7 +67,7 @@ const TrackShipment = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        top: "25%",
+        top:"25%",
         alignItems: "center",
       }}
     >
@@ -81,7 +83,7 @@ const TrackShipment = () => {
         autoComplete="off"
       >
         <div style={{ display: "flex" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{display:"flex",flexDirection:"column",}} >
             <h1
               style={{
                 textAlign: "center",
@@ -89,7 +91,7 @@ const TrackShipment = () => {
                 fontSize: "20px",
               }}
             >
-              Enter Tracking ID
+              Update Box Status
             </h1>
             <TextField
               id="trackingId"
@@ -110,7 +112,24 @@ const TrackShipment = () => {
               autoComplete="off"
               TextFieldVariants="filled"
             />
+            <label style={{marginTop:"10px"}} >
+              Select Status
+            </label>
+            <ReusableDropdown
+              options={status}
+              placeholder="Select.."
+              displayEmpty
+              id="status"
+              name="status"
+              className="w-full"
+              style={{ height: 50,marginBottom:"20px", }}
+              onChange={formik.handleChange}
+              value={formik.values.status}
+              error={formik.touched.status && Boolean(formik.errors.status)}
+              helperText={formik.touched.status && formik.errors.status}
+            />            
           </div>
+          
         </div>
         <ReusableButton
           size="medium"
@@ -118,20 +137,12 @@ const TrackShipment = () => {
           className="w-full mt-9 bg-customBlue text-white rounded-md py-2 font-semibold hover:bg-customHoverBlue "
           variant="contained"
           type="submit"
-          buttonName="Get status"
+          buttonName="Update status"
         />
       </form>
       {<ToastContainer />}
-      {orderStatus && (
-        <div  >
-          <div style={{display:"flex",justifyContent:"space-evenly",width:"50vw",marginTop:"50px",backgroundColor:"wheat",padding:"10px"}} >
-            <h1 style={{fontWeight:"bold"}} >ORDER NAME : {orderStatus?.orderName}</h1>
-            <h1 style={{fontWeight:"bold"}} >STATUS : {orderStatus?.status}</h1>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default TrackShipment;
+export default UpdateBoxStatus;

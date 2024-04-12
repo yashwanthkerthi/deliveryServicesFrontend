@@ -4,29 +4,20 @@ import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
+import ReusableDropdown from "../../components/Dropdown/Dropdown";
+
+const planOptions = [
+  { key: "Premium", value: "PREMIUM" },
+  { key: "Normal", value: "NORMAL" },
+];
 
 const PlanSelectionForm = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      fromAddress: "",
-      fromEmail: "",
-      fromName: "",
-      fromPhoneNumber: "",
-      fromPincode: "",
-
-      toAddress: "",
-      toEmail: "",
-      toName: "",
-      toPhoneNumber: "",
-      toPincode: "",
-
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      mobileNumber: "",
+      planId: "",
+      planName: "",
     },
     validationSchema: addressFormValidation,
     onSubmit: () => {
@@ -35,8 +26,8 @@ const PlanSelectionForm = () => {
   });
 
   const handleLoginDetails = async () => {
-    const { firstName, lastName, email, password, mobileNumber } =
-      formik.values;
+    // const { firstName, lastName, email, password, mobileNumber } =
+    //   formik.values;
     try {
       //   const response = await Post(
       //     networkUrls.signup,
@@ -77,7 +68,7 @@ const PlanSelectionForm = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        top:"25%",
+        top: "25%",
         alignItems: "center",
       }}
     >
@@ -93,7 +84,7 @@ const PlanSelectionForm = () => {
         autoComplete="off"
       >
         <div style={{ display: "flex" }}>
-          <div style={{display:"flex",flexDirection:"column",}} >
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <h1
               style={{
                 textAlign: "center",
@@ -101,9 +92,9 @@ const PlanSelectionForm = () => {
                 fontSize: "20px",
               }}
             >
-              From Address
+              Select plan
             </h1>
-            <TextField
+            {/* <TextField
               id="fromAddress"
               name="fromAddress"
               placeholder="Enter Address"
@@ -121,182 +112,20 @@ const PlanSelectionForm = () => {
               }
               autoComplete="off"
               TextFieldVariants="filled"
-            />
-            <TextField
-              id="fromEmail"
-              name="fromEmail"
-              placeholder="Enter Email"
-              label="fromEmail"
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.fromEmail}
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              error={Boolean(formik.errors.fromEmail)}
-              errorMessage={formik.touched.fromEmail && formik.errors.fromEmail}
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-            <TextField
-              id="fromName"
-              name="fromName"
-              placeholder="Enter Name"
-              label="fromName"
-              onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.fromName}
-              error={Boolean(formik.errors.fromName)}
-              errorMessage={formik.touched.fromName && formik.errors.fromName}
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
+            /> */}
 
-            <TextField
-              id="fromPhoneNumber"
-              name="fromPhoneNumber"
-              placeholder="Enter Phone Number"
-              label="fromPhoneNumber"
+            <label style={{ marginTop: "10px" }}>Select Plan</label>
+            <ReusableDropdown
+              options={planOptions}
+              placeholder="Select.."
+              id="planName"
+              name="planName"
+              className="w-full"
+              style={{ height: 50, marginBottom: "20px" }}
               onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.fromPhoneNumber}
-              error={Boolean(formik.errors.fromPhoneNumber)}
-              errorMessage={
-                formik.touched.fromPhoneNumber && formik.errors.fromPhoneNumber
-              }
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-            <TextField
-              id="fromPincode"
-              name="fromPincode"
-              placeholder="Enter Pin Code"
-              label="fromPincode"
-              onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.fromPincode}
-              error={Boolean(formik.errors.fromPincode)}
-              errorMessage={
-                formik.touched.fromPincode && formik.errors.fromPincode
-              }
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-          </div>
-          <div style={{display:"flex",flexDirection:"column",}} >
-            <h1
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "20px",
-              }}
-            >
-              To Address
-            </h1>
-            <TextField
-              id="toAddress"
-              name="toAddress"
-              placeholder="Enter Address"
-              label="toAddress"
-              onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.toAddress}
-              error={Boolean(formik.errors.toAddress)}
-              errorMessage={
-                formik.touched.toAddress && formik.errors.toAddress
-              }
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-            <TextField
-              id="toEmail"
-              name="toEmail"
-              placeholder="Enter Email"
-              label="toEmail"
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.toEmail}
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              error={Boolean(formik.errors.toEmail)}
-              errorMessage={formik.touched.toEmail && formik.errors.toEmail}
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-            <TextField
-              id="toName"
-              name="toName"
-              placeholder="Enter Name"
-              label="toName"
-              onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.toName}
-              error={Boolean(formik.errors.toName)}
-              errorMessage={formik.touched.toName && formik.errors.toName}
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-
-            <TextField
-              id="toPhoneNumber"
-              name="toPhoneNumber"
-              placeholder="Enter Phone Number"
-              label="toPhoneNumber"
-              onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.toPhoneNumber}
-              error={Boolean(formik.errors.toPhoneNumber)}
-              errorMessage={
-                formik.touched.toPhoneNumber && formik.errors.toPhoneNumber
-              }
-              autoComplete="off"
-              TextFieldVariants="filled"
-            />
-            <TextField
-              id="toPincode"
-              name="toPincode"
-              placeholder="Enter Pin Code"
-              label="toPincode"
-              onChange={formik.handleChange}
-              type="text"
-              style={{
-                marginBottom: "0.75rem",
-                width: "100%",
-              }}
-              value={formik.values.toPincode}
-              error={Boolean(formik.errors.toPincode)}
-              errorMessage={
-                formik.touched.toPincode && formik.errors.toPincode
-              }
-              autoComplete="off"
-              TextFieldVariants="filled"
+              value={formik.values.planName}
+              error={formik.touched.planName && Boolean(formik.errors.planName)}
+              helperText={formik.touched.planName && formik.errors.planName}
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 export const networkUrls = {
-    login: "/auth/login",
-    getToken: "/auth/get-token",
-    signup:"/auth/user-signup",
-
+    signin: "/signin",
+    getToken: "/get-token",
+    signup:"/signup",
+    addaddress:"/addaddress"
   };
   

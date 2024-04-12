@@ -31,7 +31,7 @@ const Signin = () => {
     const { email, password } = formik.values;
     try {
       const response = await Post(
-        networkUrls.login,
+        networkUrls.signin,
         {
           email,
           password,

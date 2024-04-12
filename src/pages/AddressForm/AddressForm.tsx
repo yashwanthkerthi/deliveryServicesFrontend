@@ -5,10 +5,12 @@ import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { networkUrls } from "../../services/networkUrls";
+import { Post } from "../../services/apiServices";
 
 const AddressForm = () => {
-  const [isLogged, setIsLogged] = useState(false);
-  const navigate = useNavigate()
+  // const [isLogged, setIsLogged] = useState(false);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -17,64 +19,69 @@ const AddressForm = () => {
       fromName: "",
       fromPhoneNumber: "",
       fromPincode: "",
-
       toAddress: "",
       toEmail: "",
       toName: "",
       toPhoneNumber: "",
       toPincode: "",
-
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      mobileNumber: "",
     },
     validationSchema: addressFormValidation,
     onSubmit: () => {
-      handleLoginDetails();
+      handleAddressFormDetails();
     },
   });
 
-  const handleLoginDetails =  () => {
-    console.log("hi");
-    navigate("/boxdetails")
-    
-    // const { firstName, lastName, email, password, mobileNumber } =
-    //   formik.values;
-      console.log("hi");
-      
-      navigate("/boxdetails")
-    // try {
-    //   //   const response = await Post(
-    //   //     networkUrls.signup,
-    //   //     {
-    //   //       first_name: firstName,
-    //   //       last_name: lastName,
-    //   //       email,
-    //   //       password,
-    //   //       mobile: mobileNumber,
-    //   //       fcm_token: "dummy",
-    //   //       device_id: "1",
-    //   //       device_type: "andriod",
-    //   //       status: true,
-    //   //     },
-    //   //     false
-    //   //   );
-    //   //   if (response?.data?.statusCode === 200) {
-    //   //     toast.success("Signup successful", { autoClose: 3000 });
-    //   //     Cookies.set("refreshToken", response.data.data.refreshToken);
-    //   //     Cookies.set("acessToken", response.data.data.acessToken);
-    //   //     localStorage.setItem(
-    //   //       "userDetails",
-    //   //       JSON.stringify(response?.data?.data)
-    //   //     );
-    //   //     // navigate("/");
-    //   //   } else toast.error(response?.data?.message, { autoClose: 3000 });
-    // } catch (error) {
-    //   toast.error("Please try again!", { autoClose: 3000 });
-    //   setIsLogged(false);
-    // }
+  // console.log(formik.values);
+  
+
+  const handleAddressFormDetails = async () => {
+    // console.log("hi");
+
+    const {
+      fromAddress,
+      fromEmail,
+      fromName,
+      fromPhoneNumber,
+      fromPincode,
+
+      toAddress,
+      toEmail,
+      toName,
+      toPhoneNumber,
+      toPincode,
+    } = formik.values;
+
+    try {
+      const formData = {
+        from_address: fromAddress,
+        from_email: fromEmail,
+        from_name: fromName,
+        from_mobile_number: fromPhoneNumber,
+        from_pincode: fromPincode,
+        to_address: toAddress,
+        to_email: toEmail,
+        to_name:toName,
+        to_mobile_number: toPhoneNumber,
+        to_pincode : toPincode,
+      };
+      console.log(formData);
+      // const response = await Post(networkUrls.addaddress, formData, true);
+
+      navigate("/boxdetails");
+
+
+      // if (response?.data?.statusCode === 200) {
+      //   toast.success("Signup successful", { autoClose: 3000 });
+        // navigate("/boxdetails");
+        // // Cookies.set("refreshToken", response.data.data.refreshToken);s
+        // localStorage.setItem(
+        //   "userDetails",
+        //   JSON.stringify(response?.data?.data)
+        // );
+      // } else toast.error(response?.data?.message, { autoClose: 3000 });
+    } catch (error) {
+      toast.error("Please try again!", { autoClose: 3000 });
+    }
   };
   return (
     <div
@@ -88,7 +95,6 @@ const AddressForm = () => {
         alignItems: "center",
       }}
     >
-      {/* <h1>Address Form</h1> */}
       <form
         style={{
           display: "flex",
@@ -100,7 +106,7 @@ const AddressForm = () => {
         autoComplete="off"
       >
         <div style={{ display: "flex" }}>
-          <div style={{display:"flex",flexDirection:"column",}} >
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <h1
               style={{
                 textAlign: "center",
@@ -204,7 +210,7 @@ const AddressForm = () => {
               TextFieldVariants="filled"
             />
           </div>
-          <div style={{display:"flex",flexDirection:"column",}} >
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <h1
               style={{
                 textAlign: "center",
@@ -227,9 +233,7 @@ const AddressForm = () => {
               }}
               value={formik.values.toAddress}
               error={Boolean(formik.errors.toAddress)}
-              errorMessage={
-                formik.touched.toAddress && formik.errors.toAddress
-              }
+              errorMessage={formik.touched.toAddress && formik.errors.toAddress}
               autoComplete="off"
               TextFieldVariants="filled"
             />
@@ -300,9 +304,7 @@ const AddressForm = () => {
               }}
               value={formik.values.toPincode}
               error={Boolean(formik.errors.toPincode)}
-              errorMessage={
-                formik.touched.toPincode && formik.errors.toPincode
-              }
+              errorMessage={formik.touched.toPincode && formik.errors.toPincode}
               autoComplete="off"
               TextFieldVariants="filled"
             />
@@ -310,9 +312,7 @@ const AddressForm = () => {
         </div>
         <ReusableButton
           size="medium"
-          disabled={isLogged}
           style={{ width: "100%", backgroundColor: "#0E2C53" }}
-          className="w-full mt-9 bg-customBlue text-white rounded-md py-2 font-semibold hover:bg-customHoverBlue "
           variant="contained"
           type="submit"
           buttonName="Next"

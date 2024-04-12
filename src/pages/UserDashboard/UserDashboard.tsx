@@ -35,13 +35,13 @@ const UserDashboard = () => {
   return (
     <div
       style={{
-        paddingTop: "15vh",
+        paddingTop: "10.5vh",
         height: "300vh",
         backgroundColor: "#E8F0FE",
       }}
     >
       <SwipeableTextMobileStepper images={images} />
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div style={{ display: "flex", justifyContent: "space-around",padding:"5px" }}>
         <div
           style={{
             minWidth: "400px",
@@ -52,7 +52,7 @@ const UserDashboard = () => {
             backgroundColor: "#FFFFFF",
             zIndex: "2",
             marginTop: "-50px",
-            marginRight: "10px",
+            // marginRight: "10px",
           }}
         >
           <div
@@ -92,7 +92,7 @@ const UserDashboard = () => {
             backgroundColor: "#FFFFFF",
             zIndex: "2",
             marginTop: "-50px",
-            marginRight: "10px",
+            // marginRight: "10px",
           }}
         >
           <div
@@ -133,7 +133,7 @@ const UserDashboard = () => {
             backgroundColor: "#FFFFFF",
             zIndex: "2",
             marginTop: "-50px",
-            marginRight: "10px",
+            // marginRight: "10px",
           }}
         >
           <div

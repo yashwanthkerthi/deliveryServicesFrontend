@@ -1,0 +1,8 @@
+
+.hovered-element {
+    transition: background-color 0.3s ease;
+  }
+
+.hovered-element:hover {
+    background-color: #dc0032; /* Change 'blue' to your desired color */
+  }

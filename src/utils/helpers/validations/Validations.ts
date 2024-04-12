@@ -17,12 +17,12 @@ export const addressFormValidation = yup.object().shape({
   fromEmail: yup.string().required("Please enter fromemail"),
   fromName: yup.string().required("Please enter fromname"),
   fromPhoneNumber: yup.string().required("Please enter fromhone number"),
-  fromPincode: yup.number().required("Please enter frompincode"),
+  fromPincode: yup.string().required("Please enter frompincode"),
   toAddress: yup.string().required("Please enter toaddress"),
   toEmail: yup.string().required("Please enter toemail"),
   toName: yup.string().required("Please enter toname"),
   toPhoneNumber: yup.string().required("Please enter tophonenumber"),
-  toPincode: yup.number().required("Please enter topincode"),
+  toPincode: yup.string().required("Please enter topincode"),
 });
 
 export const trackShipmentValidation = yup.object().shape({
@@ -33,7 +33,6 @@ export const boxDetailsFormValidation = yup.object().shape({
   weight: yup.string().required("Please enter weight"),
   content: yup.string().required("Please enter content name"),
   measurement: yup.string().required("Please enter measurement"),
-  shipmentPrice: yup.string().required("Please enter shipmentPrice"),
   senderName: yup.string().required("Please enter senderName"),
   recipientName: yup.number().required("Please enter recipientName"),
 });
