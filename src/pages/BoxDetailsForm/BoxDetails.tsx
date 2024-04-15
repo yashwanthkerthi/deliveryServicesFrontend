@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { Post } from "../../services/apiServices";
+import { networkUrls } from "../../services/networkUrls";
 
 const BoxDetailsForm = () => {
   const navigate = useNavigate()
@@ -24,10 +26,21 @@ const BoxDetailsForm = () => {
   });
 
   const handleAddBoxDetails = async () => {
-    navigate("/pickupdetails")
-    console.log("hi");
     try {
+      const { weight, content,measurement,sender_name,recipient_name,} = formik.values;
+      const response = await Post(
+        networkUrls.addBoxDetails,
+        { weight, content,measurement,sender_name,recipient_name,},
+        true
+      );
       
+      if (response?.data?.statusCode === 200) {
+        toast.success("succesfully placed order", { autoClose: 3000 });
+
+        setTimeout(() => {
+          navigate("/addpickupdate");
+        }, 3000);
+      } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
     }

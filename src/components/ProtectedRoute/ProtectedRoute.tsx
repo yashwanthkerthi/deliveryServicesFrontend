@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
   return token !== undefined ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/signin" />
   );
 };
 

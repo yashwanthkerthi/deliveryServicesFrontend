@@ -2,8 +2,6 @@
 import React from "react";
 import SwipeableTextMobileStepper from "../../components/Carousal/Carousal";
 import PhoneIphoneOutlinedIcon from "@mui/icons-material/PhoneIphoneOutlined";
-import ShareLocationOutlinedIcon from "@mui/icons-material/ShareLocationOutlined";
-import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
 import { Button } from "@mui/material";
 import "./index.css";
 import logo1 from "../../deliveryImages/logo1.png";

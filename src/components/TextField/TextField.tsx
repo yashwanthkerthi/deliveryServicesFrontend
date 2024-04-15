@@ -15,7 +15,7 @@ interface InputTextFieldProps {
   style?: object;
   error?: boolean;
   errorMessage?: string | boolean;
-  autoComplete?: string | boolean;
+  autoComplete?: string ;
   disabled?: boolean;
   TextFieldVariants?: "outlined" | "filled" ;
 }
@@ -50,13 +50,13 @@ const InputTextField: React.FC<InputTextFieldProps> = ({
         required={required}
         className={className}
         style={style}
-        autoComplete="disabled"        
+        autoComplete={autoComplete}        
       />
       {value==="" ? 
       <>
       {(error && errorMessage)   &&  (
-        <FormHelperText>
-          <p style={{ color: "#DC2626" }}> {errorMessage}</p>
+        <FormHelperText style={{margin:"1px"}} >
+          <p style={{ color: "#F93822" }}> {errorMessage}</p>
         </FormHelperText>
       )}
       </> : ""}

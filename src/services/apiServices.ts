@@ -1,9 +1,6 @@
 import axios from 'axios';
-// import { getJwt } from '../utils/helpers/getJwt';
-import jwtDecoder from '../utils/helpers/jwtDecoder';
-
-// export const BaseURL="https://ans-vtg2.onrender.com/api";
-export const BaseURL="http://localhost:8000/api";
+import Cookies from 'js-cookie';
+export const BaseURL="https://localhost:6000/api";
 
 
 
@@ -12,7 +9,7 @@ const getHeaders = async (header?: boolean) => {
     "Content-Type": "application/json",
   };
   if (header) {
-    const jwt = await jwtDecoder();
+    const jwt = Cookies.get("jwtToken");
     headers.Authorization = `Bearer ${jwt}`;
   }
   return headers;
@@ -42,20 +39,11 @@ const Put = async (url: string, payload: any, isRequired: boolean) => {
   const headers = await getHeaders(isRequired);
   try {
     const response = await axios.put(`${BaseURL}${url}`, payload, { headers });
-    return { response: response.data, status: response.status };
+    return response;
   } catch (error) {
     throw error;
   }
 };
 
-const Delete = async (url: string, payload: any, isRequired: boolean) => {
-  const headers = await getHeaders(isRequired);
-  try {
-    const response = await axios.delete(`${BaseURL}${url}`,{headers});
-    return response
-  } catch (error) {
-    throw error;
-  }
-};
 
-export { Post, Put ,Get ,Delete};
+export { Post, Put ,Get };

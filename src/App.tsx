@@ -19,15 +19,13 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        {/* <Route path="/navbar" element={<Navbar />} /> */}
-        
-        {/* <Route element={<ProtectedRoute />}> */}
+        <Route element={<ProtectedRoute />}>
           <Route element={<Navbar />}>
             {routes.map(({ path, element: Component }) => (
               <Route key={path} path={path} element={<Component />} />
             ))}
           </Route>
-        {/* </Route> */}
+        </Route>
       </Routes>
     </div>
   );

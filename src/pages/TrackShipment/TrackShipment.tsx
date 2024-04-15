@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
+import { networkUrls } from "../../services/networkUrls";
+import { Post } from "../../services/apiServices";
 
 const initialData = {
   orderName: "",
@@ -24,34 +26,21 @@ const TrackShipment = () => {
   });
 
   const handleTrackShipmentDetails = async () => {
-    // const { firstName, lastName, email, password, mobileNumber } =
-    //   formik.values;
     try {
-      //   const response = await Post(
-      //     networkUrls.signup,
-      //     {
-      //       first_name: firstName,
-      //       last_name: lastName,
-      //       email,
-      //       password,
-      //       mobile: mobileNumber,
-      //       fcm_token: "dummy",
-      //       device_id: "1",
-      //       device_type: "andriod",
-      //       status: true,
-      //     },
-      //     false
-      //   );
-      //   if (response?.data?.statusCode === 200) {
-      //     toast.success("Signup successful", { autoClose: 3000 });
-      //     Cookies.set("refreshToken", response.data.data.refreshToken);
-      //     Cookies.set("acessToken", response.data.data.acessToken);
-      //     localStorage.setItem(
-      //       "userDetails",
-      //       JSON.stringify(response?.data?.data)
-      //     );
-      //     // navigate("/");
-      //   } else toast.error(response?.data?.message, { autoClose: 3000 });
+      const { trackingId } = formik.values;
+      const response = await Post(
+        networkUrls.addBoxDetails,
+        { tracking_id: trackingId },
+        true
+      );
+
+      if (response?.data?.statusCode === 200) {
+        toast.success("succesfully placed order", { autoClose: 3000 });
+
+        // setTimeout(() => {
+        //   navigate("/addpickupdate");
+        // }, 3000);
+      } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
     }
@@ -69,7 +58,6 @@ const TrackShipment = () => {
         alignItems: "center",
       }}
     >
-      {/* <h1>Address Form</h1> */}
       <form
         style={{
           display: "flex",
@@ -123,10 +111,23 @@ const TrackShipment = () => {
       </form>
       {<ToastContainer />}
       {orderStatus && (
-        <div  >
-          <div style={{display:"flex",justifyContent:"space-evenly",width:"50vw",marginTop:"50px",backgroundColor:"wheat",padding:"10px"}} >
-            <h1 style={{fontWeight:"bold"}} >ORDER NAME : {orderStatus?.orderName}</h1>
-            <h1 style={{fontWeight:"bold"}} >STATUS : {orderStatus?.status}</h1>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              width: "50vw",
+              marginTop: "50px",
+              backgroundColor: "wheat",
+              padding: "10px",
+            }}
+          >
+            <h1 style={{ fontWeight: "bold" }}>
+              ORDER NAME : {orderStatus?.orderName}
+            </h1>
+            <h1 style={{ fontWeight: "bold" }}>
+              STATUS : {orderStatus?.status}
+            </h1>
           </div>
         </div>
       )}

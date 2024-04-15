@@ -1,21 +1,25 @@
 import React, { useState } from "react";
-import {updateStatusValidation } from "../../utils/helpers/validations/Validations";
+import { updateStatusValidation } from "../../utils/helpers/validations/Validations";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
 import ReusableDropdown from "../../components/Dropdown/Dropdown";
+import { useNavigate } from "react-router-dom";
+import { networkUrls } from "../../services/networkUrls";
+import { Put } from "../../services/apiServices";
 
 const status = [
-    { key: 1, value: "shipped", },
-    { key: 2, value: "delivered",  },
-  ];
+  { key: 1, value: "shipped" },
+  { key: 2, value: "delivered" },
+];
 
 const UpdateBoxStatus = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      trackingId:"",
-      status:""
+      trackingId: "",
+      status: "",
     },
     validationSchema: updateStatusValidation,
     onSubmit: () => {
@@ -24,8 +28,20 @@ const UpdateBoxStatus = () => {
   });
 
   const handleUpdateStatusDetails = async () => {
-
     try {
+      const { trackingId, status } = formik.values;
+      const response = await Put(
+        networkUrls.updateboxstatus,
+        { status, tracking_id: trackingId },
+        true
+      );
+
+      if (response?.data?.statusCode === 200) {
+        toast.success("succesfully updated order", { autoClose: 3000 });
+        setTimeout(() => {
+          navigate("/admindashboard");
+        }, 5000);
+      } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
     }
@@ -39,7 +55,7 @@ const UpdateBoxStatus = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        top:"25%",
+        top: "25%",
         alignItems: "center",
       }}
     >
@@ -55,7 +71,7 @@ const UpdateBoxStatus = () => {
         autoComplete="off"
       >
         <div style={{ display: "flex" }}>
-          <div style={{display:"flex",flexDirection:"column",}} >
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <h1
               style={{
                 textAlign: "center",
@@ -84,9 +100,7 @@ const UpdateBoxStatus = () => {
               autoComplete="off"
               TextFieldVariants="filled"
             />
-            <label style={{marginTop:"10px"}} >
-              Select Status
-            </label>
+            <label style={{ marginTop: "10px" }}>Select Status</label>
             <ReusableDropdown
               options={status}
               placeholder="Select.."
@@ -94,14 +108,13 @@ const UpdateBoxStatus = () => {
               id="status"
               name="status"
               className="w-full"
-              style={{ height: 50,marginBottom:"20px", }}
+              style={{ height: 50, marginBottom: "20px" }}
               onChange={formik.handleChange}
               value={formik.values.status}
               error={formik.touched.status && Boolean(formik.errors.status)}
               helperText={formik.touched.status && formik.errors.status}
-            />            
+            />
           </div>
-          
         </div>
         <ReusableButton
           size="medium"

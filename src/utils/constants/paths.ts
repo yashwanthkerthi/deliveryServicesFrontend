@@ -23,16 +23,12 @@ const paths = [
     path: "/boxdetails",
     element: BoxDetails,
   },
-  // {
-  //   path: "/planselection",
-  //   element: PlanSelectionForm,
-  // },
   {
     path: "/trackshipment",
     element: TrackShipment,
   },
   {
-    path: "/pickupdetails",
+    path: "/addpickupdate",
     element:PickupDetailsForm ,
   },
   {
