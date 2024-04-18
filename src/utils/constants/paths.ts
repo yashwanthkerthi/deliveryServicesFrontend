@@ -28,7 +28,7 @@ const paths = [
     element: TrackShipment,
   },
   {
-    path: "/addpickupdate",
+    path: "/addpickupdetails",
     element:PickupDetailsForm ,
   },
   {

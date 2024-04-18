@@ -9,7 +9,7 @@ import logo1 from "../../deliveryImages/logo1.png";
 import logo2 from "../../deliveryImages/logo2.png";
 import logo3 from "../../deliveryImages/logo3.png";
 import logo4 from "../../deliveryImages/logo4.png";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const images = [
   {
@@ -41,10 +41,17 @@ const UserDashboard = () => {
       }}
     >
       <SwipeableTextMobileStepper images={images} />
-      <div style={{ display: "flex", justifyContent: "space-around",padding:"5px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          padding: "5px",
+        }}
+      >
         <div
           style={{
-            minWidth: "400px",
+            minWidth: "200px",
+            maxWidth: "300px",
             minHeight: "150px",
             display: "flex",
             flexDirection: "column",
@@ -84,7 +91,8 @@ const UserDashboard = () => {
         </div>
         <div
           style={{
-            minWidth: "400px",
+            minWidth: "200px",
+            maxWidth: "300px",
             minHeight: "150px",
             display: "flex",
             flexDirection: "column",
@@ -125,7 +133,8 @@ const UserDashboard = () => {
         </div>
         <div
           style={{
-            minWidth: "400px",
+            minWidth: "200px",
+            maxWidth: "300px",
             minHeight: "150px",
             display: "flex",
             flexDirection: "column",

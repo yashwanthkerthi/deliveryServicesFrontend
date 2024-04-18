@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import TextField from "../../components/TextField/TextField";
 import ReusableButton from "../../components/Button/Button";
-import { networkUrls } from "../../services/networkUrls";
-import { Post } from "../../services/apiServices";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialData = {
-  orderName: "",
+  order_id: "",
   status: "",
 };
 
@@ -17,7 +17,7 @@ const TrackShipment = () => {
 
   const formik = useFormik({
     initialValues: {
-      trackingId: "",
+      tracking_id: "",
     },
     validationSchema: trackShipmentValidation,
     onSubmit: () => {
@@ -25,23 +25,29 @@ const TrackShipment = () => {
     },
   });
 
+  const headers = {
+    Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+    "Content-Type": "application/json",
+  };
+
   const handleTrackShipmentDetails = async () => {
     try {
-      const { trackingId } = formik.values;
-      const response = await Post(
-        networkUrls.addBoxDetails,
-        { tracking_id: trackingId },
-        true
+      const { tracking_id } = formik.values;
+
+      const response = await axios.get(
+        `http://localhost:5000/api/gettrackingdetails/${tracking_id}`,
+        { headers }
       );
 
-      if (response?.data?.statusCode === 200) {
-        toast.success("succesfully placed order", { autoClose: 3000 });
+      console.log(response);
+      
 
-        // setTimeout(() => {
-        //   navigate("/addpickupdate");
-        // }, 3000);
+      if (response?.data?.api_status === 200) {
+        toast.success(response?.data?.message, { autoClose: 3000 });
+        setOrderStatus({order_id:response?.data?.data?.dataValues?.order_id,status:response?.data?.data?.dataValues?.status})
+
       } else toast.error(response?.data?.message, { autoClose: 3000 });
-    } catch (error) {
+    }  catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
     }
   };
@@ -80,20 +86,20 @@ const TrackShipment = () => {
               Enter Tracking ID
             </h1>
             <TextField
-              id="trackingId"
-              name="trackingId"
+              id="tracking_id"
+              name="tracking_id"
               placeholder="Enter Tracking Id"
-              label="trackingId"
+              label="tracking_id"
               onChange={formik.handleChange}
               type="text"
               style={{
                 // marginBottom: "0.75rem",
                 width: "100%",
               }}
-              value={formik.values.trackingId}
-              error={Boolean(formik.errors.trackingId)}
+              value={formik.values.tracking_id}
+              error={Boolean(formik.errors.tracking_id)}
               errorMessage={
-                formik.touched.trackingId && formik.errors.trackingId
+                formik.touched.tracking_id && formik.errors.tracking_id
               }
               autoComplete="off"
               TextFieldVariants="filled"
@@ -123,10 +129,10 @@ const TrackShipment = () => {
             }}
           >
             <h1 style={{ fontWeight: "bold" }}>
-              ORDER NAME : {orderStatus?.orderName}
+              ORDER ID : <span style={{color:"red",fontWeight:"bold"}} >{orderStatus?.order_id}</span>
             </h1>
             <h1 style={{ fontWeight: "bold" }}>
-              STATUS : {orderStatus?.status}
+              STATUS :  <span style={{color:"red",fontWeight:"bold"}} >{orderStatus?.status}</span>
             </h1>
           </div>
         </div>

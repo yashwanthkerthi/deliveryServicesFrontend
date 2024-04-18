@@ -11,7 +11,7 @@ export const LoginFormValidation = yup.object().shape({
     .required("*Please enter a valid email"),
   password: yup
     .string()
-    .matches(passwordRegex, "*Please enter a valid password")
+    // .matches(passwordRegex, "*Please enter a valid password")
     .required("*Please enter your password"),
 });
 
@@ -52,13 +52,13 @@ export const addressFormValidation = yup.object().shape({
 });
 
 export const trackShipmentValidation = yup.object().shape({
-  trackingId: yup.number().required("*Please enter a valid tracking ID"),
+  tracking_id: yup.number().required("*Please enter a valid tracking ID"),
 });
 
 export const boxDetailsFormValidation = yup.object().shape({
   weight: yup.number().required("*Please enter weight"),
   content: yup.string().required("*Please enter content name"),
-  measurement: yup.string().required("*Please enter measurement"),
+  measurement: yup.number().required("*Please enter length in cms"),
   sender_name: yup.string().required("*Please enter sender name"),
   recipient_name: yup.string().required("*Please enter recipient name"),
 });
@@ -70,6 +70,6 @@ export const pickupDetailsFormValidation = yup.object().shape({
 });
 
 export const updateStatusValidation = yup.object().shape({
-  trackingId: yup.number().required("*Please enter tracking id"),
+  tracking_id: yup.number().required("*Please enter tracking id"),
   status: yup.string().required("*Please enter status"),
 });

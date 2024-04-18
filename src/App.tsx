@@ -6,6 +6,7 @@ import Signup from "./pages/Signup/Signup";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Navbar from "./components/Navbar/Navbar";
 import Signin from "./pages/Signin/Signin";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 
 interface RouteConfig {
   path: string;
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+
         <Route element={<ProtectedRoute />}>
           <Route element={<Navbar />}>
             {routes.map(({ path, element: Component }) => (

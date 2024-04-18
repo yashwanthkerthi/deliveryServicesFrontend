@@ -3,7 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
   const token = Cookies.get("jwtToken");
-  return token !== undefined ? (
+  // const userRole = Cookies.get("user_role");
+  return token !== undefined ?(
     <Outlet />
   ) : (
     <Navigate to="/signin" />

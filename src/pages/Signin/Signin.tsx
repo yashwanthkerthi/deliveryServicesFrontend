@@ -30,12 +30,16 @@ const Signin = () => {
 
   const handleLoginDetails = async () => {
     const { email, password } = formik.values;
+    
 
+    console.log(email,password);
+    
     try {
       const formData = {
         email,
         password,
       };
+      
       const response = await axios.post(
         "http://localhost:5000/api/signin",
         formData
@@ -47,8 +51,10 @@ const Signin = () => {
       if (response?.data?.api_status === 200) {
         toast.success(response?.data?.message, { autoClose: 3000 });
         Cookies.set("jwtToken", response.data.data.jwtToken);
+        Cookies.set("user_id", response.data.data.user_id);
+        Cookies.set("user_role", response.data.data.user_role);
         setTimeout(() => {
-          navigate(`/${role[response?.data?.data?.user_role]}Dashboard`);
+          navigate(`/${role[response?.data?.data?.user_role]}Dashboard`.toLowerCase());
         }, 2000);
       } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {

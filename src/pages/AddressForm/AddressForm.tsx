@@ -7,6 +7,9 @@ import ReusableButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { networkUrls } from "../../services/networkUrls";
 import { Post } from "../../services/apiServices";
+import fromtoaddressimage from "../.././deliveryImages/fromtoaddress.png";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const AddressForm = () => {
   // const [isLogged, setIsLogged] = useState(false);
@@ -30,6 +33,11 @@ const AddressForm = () => {
       handleAddressFormDetails();
     },
   });
+
+  const headers = {
+    Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+    "Content-Type": "application/json",
+  };
 
   const handleAddressFormDetails = async () => {
     const {
@@ -60,20 +68,25 @@ const AddressForm = () => {
         to_name: toName,
         to_mobile_number: toPhoneNumber,
         to_pincode: toPincode,
+        user_id: Cookies.get("user_id"),
       };
 
-      const response = await Post(networkUrls.addaddress, formData, true);
+      const response = await axios.post(
+        "http://localhost:5000/api/add-address",
+        formData,
+        { headers }
+      );
 
-      if (response?.data?.statusCode === 200) {
-        toast.success("succesfully placed order", { autoClose: 3000 });
+      console.log(response);
 
+      if (response?.data?.api_status === 200) {
+        toast.success(response?.data?.message, { autoClose: 3000 });
         setTimeout(() => {
           navigate("/boxdetails");
-        }, 3000);
+        }, 2000);
       } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       console.log(error);
-
       toast.error("Please try again!", { autoClose: 3000 });
     }
   };
@@ -84,25 +97,45 @@ const AddressForm = () => {
         height: "100vh",
         maxWidth: "100vw",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
         // paddingLeft: "150px",
       }}
     >
+      <img
+        style={{ width: "55vw", height: "85vh" }}
+        alt="fromtoimage"
+        src={fromtoaddressimage}
+      />
+
       <form
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          maxWidth: "50vw",
         }}
         onSubmit={formik.handleSubmit}
         autoComplete="off"
       >
-        <div style={{ display: "flex",flexDirection:"column"}}>
-          <div style={{ display: "flex" }}>
-            <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "space-around",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <h1
                 style={{
                   textAlign: "center",
@@ -117,9 +150,9 @@ const AddressForm = () => {
                   display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
+                  justifyContent: "center",
                 }}
               >
-                <div></div>
                 <TextField
                   id="fromAddress"
                   name="fromAddress"
@@ -177,7 +210,6 @@ const AddressForm = () => {
                   autoComplete="off"
                   TextFieldVariants="filled"
                 />
-
                 <TextField
                   id="fromPhoneNumber"
                   name="fromPhoneNumber"
@@ -234,6 +266,7 @@ const AddressForm = () => {
                   display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
+                  justifyContent: "center",
                 }}
               >
                 <TextField
@@ -335,7 +368,7 @@ const AddressForm = () => {
         <ReusableButton
           size="medium"
           style={{
-            width: "100%",
+            width: "90%",
             backgroundColor: "#0E2C53",
             marginTop: "10px",
           }}
@@ -344,6 +377,7 @@ const AddressForm = () => {
           buttonName="Next"
         />
       </form>
+
       {<ToastContainer />}
     </div>
   );

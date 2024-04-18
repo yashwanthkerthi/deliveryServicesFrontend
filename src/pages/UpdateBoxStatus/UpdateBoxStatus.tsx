@@ -8,6 +8,8 @@ import ReusableDropdown from "../../components/Dropdown/Dropdown";
 import { useNavigate } from "react-router-dom";
 import { networkUrls } from "../../services/networkUrls";
 import { Put } from "../../services/apiServices";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const status = [
   { key: 1, value: "shipped" },
@@ -18,7 +20,7 @@ const UpdateBoxStatus = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      trackingId: "",
+      tracking_id: "",
       status: "",
     },
     validationSchema: updateStatusValidation,
@@ -27,20 +29,30 @@ const UpdateBoxStatus = () => {
     },
   });
 
+  const headers = {
+    Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+    "Content-Type": "application/json",
+  };
+
   const handleUpdateStatusDetails = async () => {
+    console.log(formik.values.tracking_id, formik.values.status);
+
     try {
-      const { trackingId, status } = formik.values;
-      const response = await Put(
-        networkUrls.updateboxstatus,
-        { status, tracking_id: trackingId },
-        true
+      const { tracking_id, status } = formik.values;
+      const formData = {
+        status,
+      };
+
+      console.log(formData);
+
+      const response = await axios.put(
+        `http://localhost:5000/api/updateboxdetails/${tracking_id}`,
+        formData,
+        { headers }
       );
 
-      if (response?.data?.statusCode === 200) {
-        toast.success("succesfully updated order", { autoClose: 3000 });
-        setTimeout(() => {
-          navigate("/admindashboard");
-        }, 5000);
+      if (response?.data?.api_status === 200) {
+        toast.success(response?.data?.message, { autoClose: 3000 });
       } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
@@ -82,20 +94,20 @@ const UpdateBoxStatus = () => {
               Update Box Status
             </h1>
             <TextField
-              id="trackingId"
-              name="trackingId"
+              id="tracking_id"
+              name="tracking_id"
               placeholder="Enter Tracking Id"
-              label="trackingId"
+              label="tracking_id"
               onChange={formik.handleChange}
               type="text"
               style={{
                 // marginBottom: "0.75rem",
                 width: "100%",
               }}
-              value={formik.values.trackingId}
-              error={Boolean(formik.errors.trackingId)}
+              value={formik.values.tracking_id}
+              error={Boolean(formik.errors.tracking_id)}
               errorMessage={
-                formik.touched.trackingId && formik.errors.trackingId
+                formik.touched.tracking_id && formik.errors.tracking_id
               }
               autoComplete="off"
               TextFieldVariants="filled"

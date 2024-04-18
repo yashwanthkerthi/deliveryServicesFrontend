@@ -7,9 +7,11 @@ import ReusableButton from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../../services/apiServices";
 import { networkUrls } from "../../services/networkUrls";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const BoxDetailsForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -25,23 +27,42 @@ const BoxDetailsForm = () => {
     },
   });
 
+  const headers = {
+    Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+    "Content-Type": "application/json",
+  };
+
   const handleAddBoxDetails = async () => {
     try {
-      const { weight, content,measurement,sender_name,recipient_name,} = formik.values;
-      const response = await Post(
-        networkUrls.addBoxDetails,
-        { weight, content,measurement,sender_name,recipient_name,},
-        true
-      );
-      
-      if (response?.data?.statusCode === 200) {
-        toast.success("succesfully placed order", { autoClose: 3000 });
+      const { weight, content, measurement, sender_name, recipient_name } =
+        formik.values;
 
+      const formData = {
+        weight,
+        content,
+        measurement,
+        sender_name,
+        recipient_name,
+        user_id: Cookies.get("user_id"),
+        
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/api/addorderdetails",
+        formData,
+        { headers }
+      );
+
+      if (response?.data?.api_status === 200) {
+        toast.success(response?.data?.message, { autoClose: 3000 });
+        Cookies.set("order_id",response?.data?.data?.order_id)
         setTimeout(() => {
-          navigate("/addpickupdate");
-        }, 3000);
+          navigate("/addpickupdetails");
+        }, 2000);
       } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
+      console.log("hi");
+
       toast.error("Please try again!", { autoClose: 3000 });
     }
   };
@@ -83,7 +104,7 @@ const BoxDetailsForm = () => {
             <TextField
               id="weight"
               name="weight"
-              placeholder="Enter weight"
+              placeholder="Enter weight in kgs"
               label="weight"
               onChange={formik.handleChange}
               type="text"
@@ -118,7 +139,7 @@ const BoxDetailsForm = () => {
             <TextField
               id="measurement"
               name="measurement"
-              placeholder="Enter dimensions"
+              placeholder="Enter lenght of box in cms"
               label="measurement"
               onChange={formik.handleChange}
               type="text"

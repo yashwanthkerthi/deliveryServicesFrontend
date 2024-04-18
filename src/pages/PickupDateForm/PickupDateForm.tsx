@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { networkUrls } from "../../services/networkUrls";
 import { Post } from "../../services/apiServices";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const PickupDetailsForm = () => {
   const navigate = useNavigate();
@@ -24,21 +25,35 @@ const PickupDetailsForm = () => {
     },
   });
 
+  const headers = {
+    Authorization: `Bearer ${Cookies.get("jwtToken")}`,
+    "Content-Type": "application/json",
+  };
+
   const handleSubmitPickupDetails = async () => {
     try {
-      const { date, time, location } = formik.values;
-      const response = await Post(
-        networkUrls.addpickupdate,
-        { date, time, location },
-        true
-      );
-      
-      if (response?.data?.statusCode === 200) {
-        toast.success("succesfully placed order", { autoClose: 3000 });
+      const { date, time, location } =
+        formik.values;
 
+      const formData = {
+        date,
+        time,
+        location,
+        user_id: Cookies.get("user_id"),
+        order_id:Cookies.get("order_id")
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/api/pickupdetails",
+        formData,
+        { headers }
+      );
+
+      if (response?.data?.api_status === 200) {
+        toast.success(response?.data?.message, { autoClose: 3000 });
         setTimeout(() => {
           navigate("/userdashboard");
-        }, 3000);
+        }, 2000);
       } else toast.error(response?.data?.message, { autoClose: 3000 });
     } catch (error) {
       toast.error("Please try again!", { autoClose: 3000 });
